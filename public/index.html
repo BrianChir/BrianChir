@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>YodaAI · PMI DA Browser Assistant</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="app-header">
+    <div class="branding">
+      <div class="logo-circle">YA</div>
+      <div>
+        <h1>YodaAI Knowledge Guard</h1>
+        <p class="subtitle">Live PMI Disciplined Agile Browser insights scraped and grounded locally.</p>
+      </div>
+    </div>
+    <div class="status-block">
+      <span class="dot" id="api-status"></span>
+      <span id="status-text">Waiting for dataset…</span>
+    </div>
+  </header>
+  <main class="layout">
+    <section class="chat-panel">
+      <div id="chat-log" class="chat-log" aria-live="polite"></div>
+      <form id="chat-form" class="chat-form" autocomplete="off">
+        <label class="input-label" for="chat-input">Ask about the PMI Disciplined Agile Browser</label>
+        <div class="input-row">
+          <textarea id="chat-input" name="message" rows="2" placeholder="e.g. What are the Disciplined Agile value statements?" required></textarea>
+          <button type="submit" id="send-btn">Send</button>
+        </div>
+      </form>
+    </section>
+    <aside class="sidebar">
+      <section class="card">
+        <h2>Dataset snapshot</h2>
+        <p class="card-description">Latest pages scraped from <a href="https://dabrowser.pmi.org/" target="_blank" rel="noopener">dabrowser.pmi.org</a>.</p>
+        <ul id="page-list" class="page-list"></ul>
+      </section>
+      <section class="card">
+        <h2>How it works</h2>
+        <ol class="instructions">
+          <li>Run <code>npm run scrape</code> to capture the PMI DA Browser content locally.</li>
+          <li>Start the assistant with <code>npm start</code>.</li>
+          <li>Ask questions. Responses stay grounded in the scraped dataset.</li>
+        </ol>
+      </section>
+      <section class="card warning">
+        <h2>Answer guardrails</h2>
+        <p>The assistant refuses to answer outside the PMI DA Browser dataset. If context is missing it will say so explicitly.</p>
+      </section>
+    </aside>
+  </main>
+  <footer class="app-footer">
+    <div>
+      <strong>Session log:</strong>
+      <span id="last-updated">No data loaded yet.</span>
+    </div>
+    <div class="footer-links">
+      <a href="/data/pmidb.json" target="_blank" rel="noopener">View raw knowledge base</a>
+    </div>
+  </footer>
+  <template id="message-template">
+    <article class="message">
+      <div class="message-meta">
+        <span class="message-role"></span>
+        <time class="message-time"></time>
+      </div>
+      <div class="message-body"></div>
+      <ul class="sources"></ul>
+    </article>
+  </template>
+  <script src="app.js" type="module"></script>
+</body>
+</html>
